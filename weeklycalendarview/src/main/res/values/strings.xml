@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">weeklycalendarview</string>
+    <string name="weekly_item_month_format">MM月</string>
+    <string name="weekly_item_day_format">dd</string>
 </resources>

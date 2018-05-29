@@ -1,6 +1,7 @@
 <resources>
     <color name="C_00CEFF">#00CEFF</color>
     <color name="C_69A0FF">#69A0FF</color>
+    <color name="CC_27BDFF">#27BDFF</color>
     <color name="C_99FFFFFF">#99FFFFFF</color>
     <color name="C_33FFFFFF">#33FFFFFF</color>
 </resources>

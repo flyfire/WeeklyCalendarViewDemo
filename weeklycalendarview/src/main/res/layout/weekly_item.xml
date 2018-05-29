@@ -2,8 +2,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_weekly"
     android:layout_width="50dp"
     android:layout_height="60dp"
+    android:background="@drawable/weekly_item_background"
     tools:background="@android:color/black">
 
     <LinearLayout
@@ -11,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/v_bottom"
-        android:layout_toLeftOf="@+id/v_divider"
         android:orientation="vertical"
         android:gravity="center">
         <TextView
@@ -32,15 +33,9 @@
     </LinearLayout>
     <View
         android:id="@+id/v_bottom"
-        android:layout_toLeftOf="@+id/v_divider"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="2dp"
+        android:visibility="gone"
         android:background="@color/C_69A0FF"/>
-    <View
-        android:id="@+id/v_divider"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:background="@color/C_33FFFFFF"/>
 </RelativeLayout>
