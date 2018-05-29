@@ -83,6 +83,8 @@ public class WeeklyCalendarView extends LinearLayout {
             start += TimeUnit.DAYS.toMicros(7);
         }
         mAdapter.setDatas(mModels);
+        int count = mModels.size();
+        mRecyclerView.scrollToPosition(count - 1);
     }
 
     public void setOnWeeklyItemClickListener(OnWeeklyItemClickListener listener) {
