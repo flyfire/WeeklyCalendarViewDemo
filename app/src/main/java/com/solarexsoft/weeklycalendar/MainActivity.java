@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.solarexsoft.weeklycalendarview.WeeklyCalendarView;
+import com.solarexsoft.weeklycalendarview.WeeklyItemModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,5 +21,13 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         Log.d(TAG, "start = " + format.format(startDate));
         weeklyCalendarView.setStartDate(startDate);
+        weeklyCalendarView.setOnWeeklyItemClickListener(new WeeklyCalendarView.OnWeeklyItemClickListener() {
+
+
+            @Override
+            public void onItemClick(int position, WeeklyItemModel model) {
+                Log.d(TAG, model.toString());
+            }
+        });
     }
 }
