@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         WeeklyCalendarView weeklyCalendarView = findViewById(R.id.wcl_main);
-        Date startDate = new Date(0, 0, 1);
+        Date startDate = new Date(80, 0, 1);
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         Log.d(TAG, "start = " + format.format(startDate));
         weeklyCalendarView.setStartDate(startDate);

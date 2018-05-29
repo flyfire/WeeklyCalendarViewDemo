@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class WeeklyCalendarView extends LinearLayout {
     RecyclerView mRecyclerView;
@@ -47,16 +47,23 @@ public class WeeklyCalendarView extends LinearLayout {
         mRecyclerView.addItemDecoration(divider);
         mAdapter = new WeeklyItemAdapter(context);
         mRecyclerView.setAdapter(mAdapter);
+        final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(context) {
+            @Override
+            protected int getHorizontalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_START;
+            }
+        };
         mAdapter.setOnItemClickListener(new WeeklyItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(WeeklyItemModel data, WeeklyItemViewHolder holder, int
                     position) {
                 int startPosition = position - 3;
                 if (startPosition >= 0) {
-                    mRecyclerView.smoothScrollToPosition(startPosition);
+                    smoothScroller.setTargetPosition(startPosition);
                 } else {
-                    mRecyclerView.smoothScrollToPosition(position);
+                    smoothScroller.setTargetPosition(position);
                 }
+                mRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
                 if (mListener != null) {
                     mListener.onItemClick(position, data);
                 }
@@ -72,7 +79,7 @@ public class WeeklyCalendarView extends LinearLayout {
         long startWeekSunday = startModel.getStartDate().getTime();
         long endWeekSunday = endModel.getStartDate().getTime();
         long diff = endWeekSunday - startWeekSunday;
-        if (diff < TimeUnit.DAYS.toMillis(42)) {
+        if (diff < 42*24*60*60*1000) {
             throw new IllegalArgumentException("The start time must be at least 42 days ago.");
         }
         mModels = new ArrayList<>();
@@ -80,10 +87,11 @@ public class WeeklyCalendarView extends LinearLayout {
             Date tmpDate = new Date(start);
             WeeklyItemModel tmpModel = WeeklyUtils.getWeeklyStartEndDate(tmpDate);
             mModels.add(tmpModel);
-            start += TimeUnit.DAYS.toMicros(7);
+            start += 7*24*60*60*1000;
         }
         mAdapter.setDatas(mModels);
         int count = mModels.size();
+        mAdapter.setSelection(count - 1);
         mRecyclerView.scrollToPosition(count - 1);
     }
 

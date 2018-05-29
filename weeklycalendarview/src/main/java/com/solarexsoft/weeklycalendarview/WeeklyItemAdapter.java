@@ -17,12 +17,14 @@ public class WeeklyItemAdapter extends RecyclerView.Adapter<WeeklyItemViewHolder
     private SimpleDateFormat mDayFormatter;
     private int mSelectPosition;
     private Context mContext;
+    private int mWidth;
 
     public WeeklyItemAdapter(Context context) {
         mContext = context;
         mMonthFormatter = new SimpleDateFormat(context.getString(R.string
                 .weekly_item_month_format));
         mDayFormatter = new SimpleDateFormat(context.getString(R.string.weekly_item_day_format));
+        mWidth = mContext.getResources().getDisplayMetrics().widthPixels/7;
     }
 
     @NonNull
@@ -48,6 +50,9 @@ public class WeeklyItemAdapter extends RecyclerView.Adapter<WeeklyItemViewHolder
             holder.rl_weekly.setBackgroundColor(mContext.getResources().getColor(android.R.color.transparent));
             holder.v_bottom.setVisibility(View.GONE);
         }
+        ViewGroup.LayoutParams layoutParams = holder.rl_weekly.getLayoutParams();
+        layoutParams.width = mWidth;
+        holder.rl_weekly.setLayoutParams(layoutParams);
         holder.rl_weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +71,11 @@ public class WeeklyItemAdapter extends RecyclerView.Adapter<WeeklyItemViewHolder
             return mDatas.size();
         }
         return 0;
+    }
+
+    public void setSelection(int position) {
+        mSelectPosition = position;
+        notifyDataSetChanged();
     }
 
     public void setDatas(List<WeeklyItemModel> datas) {
