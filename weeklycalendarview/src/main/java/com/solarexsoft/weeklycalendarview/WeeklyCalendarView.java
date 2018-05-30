@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -53,6 +54,11 @@ public class WeeklyCalendarView extends LinearLayout {
             protected int getHorizontalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
+
+            @Override
+            protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+                return 150f/displayMetrics.densityDpi;
+            }
         };
         mAdapter.setOnItemClickListener(new WeeklyItemAdapter.OnItemClickListener() {
             @Override
@@ -70,6 +76,11 @@ public class WeeklyCalendarView extends LinearLayout {
                 }
             }
         });
+//        mRecyclerView.getItemAnimator().setChangeDuration(0);
+//        ((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+//        RecyclerView.ItemAnimator animator = new DefaultItemAnimator();
+//        animator.setChangeDuration(0);
+//        mRecyclerView.setItemAnimator(animator);
     }
 
     public void setStartDate(Date date) {
