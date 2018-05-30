@@ -43,26 +43,33 @@ public class WeeklyItemAdapter extends RecyclerView.Adapter<WeeklyItemViewHolder
                 (model.getEndDate());
         holder.tv_month.setText(month);
         holder.tv_days.setText(day);
-        if (position == mSelectPosition) {
-            holder.rl_weekly.setBackgroundColor(mContext.getResources().getColor(R.color.CC_27BDFF));
-            holder.v_bottom.setVisibility(View.VISIBLE);
-        } else {
-            holder.rl_weekly.setBackgroundColor(mContext.getResources().getColor(android.R.color.transparent));
+        int size = getItemCount();
+        if (position == 0 || position == 1 || position == 2 || position == size -1 || position == size-2 || position == size-3) {
+            holder.rl_weekly.setBackgroundColor(mContext.getResources().getColor(android.R.color.black));
+            holder.rl_weekly.setClickable(false);
             holder.v_bottom.setVisibility(View.GONE);
+        } else {
+            if (position == mSelectPosition) {
+                holder.rl_weekly.setBackgroundColor(mContext.getResources().getColor(R.color.CC_27BDFF));
+                holder.v_bottom.setVisibility(View.VISIBLE);
+            } else {
+                holder.rl_weekly.setBackgroundColor(mContext.getResources().getColor(android.R.color.transparent));
+                holder.v_bottom.setVisibility(View.GONE);
+            }
+            holder.rl_weekly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSelectPosition = position;
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(model, holder, position);
+                    }
+                    notifyDataSetChanged();
+                }
+            });
         }
         ViewGroup.LayoutParams layoutParams = holder.rl_weekly.getLayoutParams();
         layoutParams.width = mWidth;
         holder.rl_weekly.setLayoutParams(layoutParams);
-        holder.rl_weekly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSelectPosition = position;
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(model, holder, position);
-                }
-                notifyDataSetChanged();
-            }
-        });
     }
 
     @Override

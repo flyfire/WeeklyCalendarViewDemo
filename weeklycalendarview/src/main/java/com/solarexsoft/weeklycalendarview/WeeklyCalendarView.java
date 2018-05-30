@@ -88,8 +88,8 @@ public class WeeklyCalendarView extends LinearLayout {
         WeeklyItemModel startModel = WeeklyUtils.getWeeklyStartEndDate(startParam);
         Date endParam = WeeklyUtils.getStartOfDay(new Date());
         WeeklyItemModel endModel = WeeklyUtils.getWeeklyStartEndDate(endParam);
-        long startWeekSunday = startModel.getStartDate().getTime();
-        long endWeekSunday = endModel.getStartDate().getTime();
+        long startWeekSunday = startModel.getStartDate().getTime() - 3*7*24*60*60*1000;
+        long endWeekSunday = endModel.getStartDate().getTime() + 3*7*24*60*60*1000;
         long diff = endWeekSunday - startWeekSunday;
         if (diff < 42*24*60*60*1000) {
             throw new IllegalArgumentException("The start time must be at least 42 days ago.");
@@ -103,8 +103,8 @@ public class WeeklyCalendarView extends LinearLayout {
         }
         mAdapter.setDatas(mModels);
         int count = mModels.size();
-        mAdapter.setSelection(count - 1);
-        mRecyclerView.scrollToPosition(count - 1);
+        mAdapter.setSelection(count - 4);
+        mRecyclerView.scrollToPosition(count - 7);
     }
 
     public void setWeekAgo(int weekAgo) {
