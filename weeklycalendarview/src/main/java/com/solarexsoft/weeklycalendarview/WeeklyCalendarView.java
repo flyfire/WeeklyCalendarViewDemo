@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class WeeklyCalendarView extends LinearLayout {
@@ -93,6 +94,16 @@ public class WeeklyCalendarView extends LinearLayout {
         int count = mModels.size();
         mAdapter.setSelection(count - 1);
         mRecyclerView.scrollToPosition(count - 1);
+    }
+
+    public void setWeekAgo(int weekAgo) {
+        Date now = WeeklyUtils.getStartOfDay(new Date());
+        WeeklyItemModel nowModel = WeeklyUtils.getWeeklyStartEndDate(now);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowModel.getStartDate());
+        calendar.add(Calendar.DATE, -7 * weekAgo);
+        Date start = calendar.getTime();
+        setStartDate(start);
     }
 
     public void setOnWeeklyItemClickListener(OnWeeklyItemClickListener listener) {

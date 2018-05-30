@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         Date startDate = new Date(80, 0, 1);
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         Log.d(TAG, "start = " + format.format(startDate));
-        weeklyCalendarView.setStartDate(startDate);
+//        weeklyCalendarView.setStartDate(startDate);
+        weeklyCalendarView.setWeekAgo(30);
         weeklyCalendarView.setOnWeeklyItemClickListener(new WeeklyCalendarView.OnWeeklyItemClickListener() {
 
 
